@@ -19,6 +19,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     TextView accelZ;
     TextView lati;
     TextView longi;
+    Switch switch1;
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         accelZ = (TextView) findViewById(R.id.AccelZValue);
         lati = (TextView) findViewById(R.id.LatValue);
         longi = (TextView) findViewById(R.id.LongValue);
+        switch1 = (Switch) findViewById(R.id.switch1);
 
         mSensorManager = (SensorManager)
                 getSystemService(Context.SENSOR_SERVICE);
@@ -77,6 +81,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             e.printStackTrace(); // print error if init or load patch fails.
             finish(); // end program
         }
+
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                float val = (isChecked) ?  1.0f : 0.0f; // value = (get value of isChecked, if true val = 1.0f, if false val = 0.0f)
+                sendFloatPD("startStop", val); //send value to patch, receiveEvent names onOff
+
+            }
+        });
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -114,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     //METHOD TO SEND FLOAT TO PUREDATA PATCH
-    public void sendFloatPD(String receiver, Float value)//REQUIRES (RECEIVEEVENT NAME, FLOAT VALUE TO SEND)
+    public void sendFloatPD(String receiver, Float value)//REQUIRES (RECEIVE EVENT NAME, FLOAT VALUE TO SEND)
     {
         PdBase.sendFloat(receiver, value); //send float to receiveEvent
     }

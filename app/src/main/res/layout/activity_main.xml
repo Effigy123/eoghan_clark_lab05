@@ -39,16 +39,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="28dp" />
 
-    <Switch
-        android:text="On/Off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switch1"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="24dp"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/AccelXValue" />
-
     <TextView
         android:text="Accelerometer Y:"
         android:layout_width="wrap_content"
@@ -108,5 +98,16 @@
         android:id="@+id/LatValue"
         android:layout_above="@+id/LongText"
         android:layout_alignStart="@+id/LongValue" />
+
+    <Switch
+        android:text="Start/Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch1"
+        android:checked="false"
+        android:splitTrack="false"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/AccelXTest"
+        android:layout_marginTop="15dp" />
 
 </RelativeLayout>
